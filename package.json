@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "watch": "webpack --watch",
-    "buildcustom": "webpack --config webpack.custom.config.js --watch",
+    "buildcustom": "webpack --config webpack.custom.config.js",
+    "dev2": "webpack-dev-server --compress --hot --port 5000 --open --contentBase src",
+    "dev": "webpack-dev-server",
     "server": "node server.js"
   },
   "keywords": [],
