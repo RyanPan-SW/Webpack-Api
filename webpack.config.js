@@ -5,10 +5,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: {
-    main: './src/index.js',
-    
-  }, // 入口文件配置
+  entry: "./src/index.js", // 入口文件配置
   output: {
     // 输出文件配置
     path: path.join(__dirname, "dist"),
@@ -31,26 +28,29 @@ module.exports = {
         // loader的执行顺序是从右到左以管道的方式链式调用
         // css-loader: 解析css文件
         // style-loader: 将解析出来的结果 放到html中, 使其生效
-        use: ['style-loader', 'css-loader']
+        use: ["style-loader", "css-loader"],
       },
-      { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] },
-      { test: /\.s(a|c)ss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+      { test: /\.less$/, use: ["style-loader", "css-loader", "less-loader"] },
+      {
+        test: /\.s(a|c)ss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
       {
         test: /\.(jpg|jpeg|png|bmp|gif)$/,
         use: {
-          loader: 'url-loader',
+          loader: "url-loader",
           options: {
             limit: 5 * 1024,
-            outputPath: 'images',
-            name: '[name]-[hash:4].[ext]'
-          }
-        }
+            outputPath: "images",
+            name: "[name]-[hash:4].[ext]",
+          },
+        },
       },
-      { test: /\.(woff|woff2|eot|svg|ttf)$/, use: 'url-loader' },
+      { test: /\.(woff|woff2|eot|svg|ttf)$/, use: "url-loader" },
       {
         test: /\.js$/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           // options: {
           //   presets: ['@babel/env'],
           //   plugins: [
@@ -60,8 +60,7 @@ module.exports = {
           // }
         },
         exclude: /node_modules/,
-
-      }
+      },
     ],
   },
   plugins: [

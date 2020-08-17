@@ -1,3 +1,4 @@
 node_modules
 README2.*
 dist
+package-lock.json
