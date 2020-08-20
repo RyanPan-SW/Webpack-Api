@@ -1,5 +1,4 @@
-
-console.log('我是a模块')
+console.log("我是a模块");
 // CommonJS的导出语法规范
 // module.exports = {
 //   name: 'aaa'
@@ -7,7 +6,9 @@ console.log('我是a模块')
 
 // ES6的导出语法规范
 export default {
-  name: 'aaa'
-}
-console.log('object')
-console.log('object22')
+  name: "aaa",
+};
+console.log("object");
+console.log("object22");
+
+$("body").css("backgroundColor", "yellow");

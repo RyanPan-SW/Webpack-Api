@@ -13,13 +13,7 @@ module.exports = {
     publicPath: "/",
   },
   mode: "development",
-  watch: true,
-  devServer: {
-    prot: 3000, // 启动端口
-    open: true, // 自动打开页面
-    hot: true, // 热更新
-    // contentBase: "/",
-  },
+
   module: {
     rules: [
       {
@@ -61,6 +55,10 @@ module.exports = {
         },
         exclude: /node_modules/,
       },
+      // {
+      //   test: require.resolve("jquery"), // 引入第三方库的方式一
+      //   use: { loader: "expose-loader", options: "$" },
+      // },
     ],
   },
   plugins: [
@@ -78,6 +76,10 @@ module.exports = {
       ],
     }),
     new webpack.BannerPlugin("大牛牛"),
+    new webpack.ProgressPlugin({  // 引入第三方库的方式二
+      $: "jquery",  // 定义的两个变量
+      jQuery: "jquery",
+    }),
   ],
   // devtool: 'cheap-module-eval-source-map'
 };
