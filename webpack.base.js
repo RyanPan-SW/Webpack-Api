@@ -3,6 +3,7 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: "./src/index.js", // 入口文件配置
@@ -22,12 +23,15 @@ module.exports = {
         // loader的执行顺序是从右到左以管道的方式链式调用
         // css-loader: 解析css文件
         // style-loader: 将解析出来的结果 放到html中, 使其生效
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
       },
-      { test: /\.less$/, use: ["style-loader", "css-loader", "less-loader"] },
+      { 
+        test: /\.less$/, 
+        use: [MiniCssExtractPlugin.loader, "css-loader", 'postcss-loader', "less-loader"] 
+      },
       {
         test: /\.s(a|c)ss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader",'postcss-loader', "sass-loader"],
       },
       {
         test: /\.(jpg|jpeg|png|bmp|gif)$/,
@@ -74,6 +78,9 @@ module.exports = {
           to: "assets",
         },
       ],
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
     }),
     new webpack.BannerPlugin("大牛牛"),
     new webpack.ProgressPlugin({  // 引入第三方库的方式二
