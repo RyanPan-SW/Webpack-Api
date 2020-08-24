@@ -83,7 +83,7 @@ module.exports = {
       filename: '[name].css'
     }),
     new webpack.BannerPlugin("大牛牛"),
-    new webpack.ProgressPlugin({  // 引入第三方库的方式二
+    new webpack.ProvidePlugin({  // 引入第三方库的方式二
       $: "jquery",  // 定义的两个变量
       jQuery: "jquery",
     }),
