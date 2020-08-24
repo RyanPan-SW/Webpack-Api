@@ -3,7 +3,9 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserWebpackPlugin = require("terser-webpack-plugin");
+const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js", // 入口文件配置
@@ -23,15 +25,25 @@ module.exports = {
         // loader的执行顺序是从右到左以管道的方式链式调用
         // css-loader: 解析css文件
         // style-loader: 将解析出来的结果 放到html中, 使其生效
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
-      { 
-        test: /\.less$/, 
-        use: [MiniCssExtractPlugin.loader, "css-loader", 'postcss-loader', "less-loader"] 
+      {
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "less-loader",
+        ],
       },
       {
         test: /\.s(a|c)ss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader",'postcss-loader', "sass-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
       },
       {
         test: /\.(jpg|jpeg|png|bmp|gif)$/,
@@ -80,13 +92,23 @@ module.exports = {
       ],
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css'
+      filename: "[name].css",
     }),
     new webpack.BannerPlugin("大牛牛"),
-    new webpack.ProvidePlugin({  // 引入第三方库的方式二
-      $: "jquery",  // 定义的两个变量
+    new webpack.ProvidePlugin({
+      // 引入第三方库的方式二
+      $: "jquery", // 定义的两个变量
       jQuery: "jquery",
     }),
   ],
-  // devtool: 'cheap-module-eval-source-map'
+  // devtool: 'cheap-module-eval-source-map'，
+  optimization: {
+    minimizer: [
+      new TerserWebpackPlugin({}, new OptimizeCssAssetsWebpackPlugin({})),
+    ],
+    splitChunks: {
+      chunks: 'all',
+      minSize: 30000
+    }
+  },
 };
